@@ -23,6 +23,11 @@ struct LoginView: View {
                 
                 //Login Form
                 Form{
+                    //Error when loging in
+                    if !viewModel.errorMessage.isEmpty{
+                        Text(viewModel.errorMessage).foregroundColor(Color.red)
+                    }
+                    
                     TextField("Email Adress", text:$viewModel.email) //Access to parameters
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     //Extra modifications to make the app better
@@ -33,7 +38,7 @@ struct LoginView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     TButton(title: "Log in", background: .blue){
-                        //Attempt to log in
+                        viewModel.login()
                     }
                     .padding()
                 }
