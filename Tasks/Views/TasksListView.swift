@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct TasksListView: View {
+    @StateObject var viewModel = TasksListViewModel()
+    
+    private let userId: String
+    
+    init(userId: String){
+        self.userId = userId
+    }
+    
     var body: some View {
-        Text("Welcome to your account!")
+        NavigationView{
+            VStack{
+                
+            }
+            .navigationTitle("Tasks")
+            .toolbar{
+                Button{
+                    //Action
+                } label:{
+                    Image(systemName: "plus")
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    TasksListView()
+    TasksListView(userId: "")
 }
