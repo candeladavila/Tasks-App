@@ -31,7 +31,7 @@ struct NewItemView: View {
                 //Button
                 TButton(title: "Save", background: .blue){
                     if viewModel.canSave {
-                        viewModel.save();
+                        viewModel.save()
                         newItemPresented = false
                     } else{
                         viewModel.showAlert = true

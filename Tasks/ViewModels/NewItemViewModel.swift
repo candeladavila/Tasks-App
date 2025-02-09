@@ -5,6 +5,8 @@
 //  Created by Candela Dávila Moreno on 7/2/25.
 //
 
+import FirebaseAuth
+import FirebaseFirestore
 import Foundation
 
 class NewItemViewModel: ObservableObject{
@@ -15,7 +17,32 @@ class NewItemViewModel: ObservableObject{
     init(){}
     
     func save(){
+        guard canSave else{
+            return
+        }
         
+        //Get user Id to create a collection
+        guard let userId = Auth.auth().currentUser?.uid else{
+            return
+        }
+        
+        //Create model
+        let newId = UUID().uuidString
+        let newItem = TaskItem(
+            id: newId,
+            title: title,
+            dueDate: dueDate.timeIntervalSince1970,
+            createDate: Date().timeIntervalSince1970,
+            isDone: false
+        )
+        
+        //Save model in the database
+        let db = Firestore.firestore() //create instance of database
+        db.collection("users")
+            .document(userId)
+            .collection("Tasks")
+            .document(newId)
+            .setData(newId.asDictionary())
     }
     
     var canSave: Bool{
