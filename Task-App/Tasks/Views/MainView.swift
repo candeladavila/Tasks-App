@@ -11,6 +11,11 @@ struct MainView: View {
     //Before showing LoginView check if a user is already logged in
     @StateObject var viewModel = MainViewModel()
     
+    init() {
+        //Changes color of icons and text from tabItems
+        UITabBar.appearance().tintColor = UIColor.green
+    }
+    
     var body: some View {
         if viewModel.isSignedIn, !viewModel.currentUserId.isEmpty{
             //if already signed in
@@ -29,8 +34,11 @@ struct MainView: View {
                 }
             ProfileView()
                 .tabItem{
-                    Label("Profile", systemImage: "person.circle")
+                    Label("Profile",systemImage:"person.circle")
                 }
+        }
+        .onAppear {
+            UITabBar.appearance().tintColor = UIColor.green
         }
     }
 }

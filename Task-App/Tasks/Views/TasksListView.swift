@@ -41,6 +41,7 @@ struct TasksListView: View {
                     viewModel.showingNewItemView = true
                 } label:{
                     Image(systemName: "plus")
+                        .foregroundColor(Color.green)
                 }
             }
             .sheet(isPresented: $viewModel.showingNewItemView){
