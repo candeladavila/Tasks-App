@@ -20,8 +20,6 @@ struct NewItemView: View {
                 //Title
                 TextField("Title", text: $viewModel.title)
                     .textFieldStyle(DefaultTextFieldStyle())
-                    .foregroundColor(Color.green)
-                
                 
                 //Due Date
                 DatePicker("Due date", selection: $viewModel.dueDate)
@@ -29,7 +27,9 @@ struct NewItemView: View {
 
                 
                 //Button
-                TButton(title: "Save", background: .blue){
+                TButton(
+                    title: "Save",
+                    background: .blue){
                     if viewModel.canSave {
                         viewModel.save()
                         newItemPresented = false

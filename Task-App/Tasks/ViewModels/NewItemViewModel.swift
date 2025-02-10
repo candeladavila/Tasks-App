@@ -22,7 +22,7 @@ class NewItemViewModel: ObservableObject{
         }
         
         //Get user Id to create a collection
-        guard let userId = Auth.auth().currentUser?.uid else{
+        guard let uId = Auth.auth().currentUser?.uid else{
             return
         }
         
@@ -39,10 +39,10 @@ class NewItemViewModel: ObservableObject{
         //Save model in the database
         let db = Firestore.firestore() //create instance of database
         db.collection("users")
-            .document(userId)
+            .document(uId)
             .collection("Tasks")
             .document(newId)
-            .setData(newId.asDictionary())
+            .setData(newItem.asDictionary())
     }
     
     var canSave: Bool{
