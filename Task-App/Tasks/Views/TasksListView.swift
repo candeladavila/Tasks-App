@@ -17,8 +17,7 @@ struct TasksListView: View {
         //users /<id> /tasks/<entries>
         self._items = FirestoreQuery(collectionPath: "users/\(userId)/Tasks")
         self._viewModel = StateObject(
-            wrappedValue:
-                TasksListViewModel(userId: userId))
+            wrappedValue: TasksListViewModel(userId: userId))
     }
     
     var body: some View {

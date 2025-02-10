@@ -14,13 +14,16 @@ class TasksListViewModel: ObservableObject{
     private let userId : String
     
     init(userId: String){
-        self.userId = userId    }
+        self.userId = userId
+    }
     
+    //Delete tasks from tasks list
+    // -Parameter id: item id to delete
     func delete(id: String){
         let db = Firestore.firestore()
         
         db.collection("users")
-            .document("user_id")
+            .document(userId)
             .collection("Tasks")
             .document(id)
             .delete()
