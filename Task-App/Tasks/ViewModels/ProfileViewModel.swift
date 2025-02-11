@@ -10,22 +10,38 @@ import FirebaseFirestore
 import Foundation
 
 class ProfileViewModel: ObservableObject{
+    
     init(){}
     
-    func toggleIsDone(item : TaskItem){
-        //It is neccessary to create a copy of our item because item is unmutable and we want to modify one of it's properties
-        var itemCopy = item
-        itemCopy.setDone(!item.isDone)
-        
-        //Update database
-        guard let uid = Auth.auth().currentUser?.uid else{
+    @Published var user: User? = nil
+    
+    func fetchUser() {
+        guard let userId = Auth.auth().currentUser?.uid else {
             return
         }
-        let db = Firestore.firestore() //get access to database
-        db.collection("users")
-            .document(uid)
-            .collection("Tasks")
-            .document(itemCopy.id)
-            .setData(itemCopy.asDictionary())
+        
+        let db = Firestore.firestore()
+        db.collection("users").document(userId).getDocument { [weak self] snapshot, error in
+            guard let data = snapshot?.data(), error == nil else{
+                return
+            }
+            
+            DispatchQueue.main.async{
+                self?.user = User(
+                    id: data["id"] as? String ?? "",
+                    name: data["name"] as? String ?? "",
+                    email: data["email"] as? String ?? "",
+                    joined: data["joined"] as? TimeInterval ?? 0
+                )
+            }
+        }
+    }
+    
+    func logOut(){
+        do {
+            try Auth.auth().signOut()
+        } catch{
+            print(error)
+        }
     }
 }

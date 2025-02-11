@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TasksItemView: View {
-    @StateObject var viewModel = ProfileViewModel()
+    @StateObject var viewModel = TasksItemViewModel()
     let item: TaskItem
     
     var body: some View {
